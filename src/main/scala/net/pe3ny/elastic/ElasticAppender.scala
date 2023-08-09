@@ -10,8 +10,9 @@ import play.api.libs.json.{JsObject, JsValue, Json}
 import sttp.client3.akkahttp.AkkaHttpBackend
 import sttp.client3.basicRequest
 import sttp.model.Uri
+
 import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, LocalDateTime}
+import java.time.{LocalDate, LocalDateTime, OffsetDateTime, ZoneId}
 import java.util.concurrent.ForkJoinPool
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
@@ -54,10 +55,10 @@ class ElasticAppender extends AppenderBase[ILoggingEvent] {
 
   private var sendQueue: Option[SourceQueueWithComplete[ILoggingEvent]] = None
 
-  case class ElasticMessage(logger: String, level: String, message: String, jsonPayload: Option[(String, JsValue)] = None) {
+  case class ElasticMessage(stamp: OffsetDateTime, logger: String, level: String, message: String, jsonPayload: Option[(String, JsValue)] = None) {
     def toJson: JsObject = {
       val basicJson = Json.obj(
-        "@timestamp" -> LocalDateTime.now.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
+        "@timestamp" -> stamp.toString,
         "logger" -> logger,
         "level" -> level,
         "message" -> message,
@@ -77,6 +78,7 @@ class ElasticAppender extends AppenderBase[ILoggingEvent] {
       Source.queue[ILoggingEvent](bufferSize, OverflowStrategy.backpressure)
         .map[ElasticMessage] { event =>
           ElasticMessage(
+            OffsetDateTime.ofInstant(event.getInstant, ZoneId.systemDefault),
             event.getLoggerName,
             event.getLevel.toString,
             event.getMessage,
