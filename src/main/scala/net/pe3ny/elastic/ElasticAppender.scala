@@ -57,7 +57,7 @@ class ElasticAppender extends AppenderBase[ILoggingEvent] {
   case class ElasticMessage(logger: String, level: String, message: String, jsonPayload: Option[(String, JsValue)] = None) {
     def toJson: JsObject = {
       val basicJson = Json.obj(
-        "@timestamp" -> LocalDateTime.now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+        "@timestamp" -> LocalDateTime.now.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
         "logger" -> logger,
         "level" -> level,
         "message" -> message,
