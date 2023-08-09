@@ -1,4 +1,4 @@
-package elastic
+package net.pe3ny.elastic
 
 import org.slf4j.Marker
 import play.api.libs.json.JsValue

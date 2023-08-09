@@ -1,4 +1,4 @@
-package elastic
+package net.pe3ny.elastic
 
 import java.security.SecureRandom
 import java.security.cert.X509Certificate

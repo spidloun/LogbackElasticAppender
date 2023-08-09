@@ -1,4 +1,4 @@
-package elastic
+package net.pe3ny.elastic
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.ConnectionContext

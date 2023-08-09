@@ -1,9 +1,14 @@
 
 name := "LogbackElasticAppender"
-version := "0.0.1"
+version := "0.0.2"
 organization := "net.pe3ny"
 
 scalaVersion := "2.13.11"
+
+// GitHub packages publishing
+githubOwner := "spidloun"
+githubRepository := "LogbackElasticAppender"
+githubTokenSource := TokenSource.GitConfig("github.token")
 
 libraryDependencies ++= Seq(
   // JSON lib
