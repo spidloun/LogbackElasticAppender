@@ -1,6 +1,6 @@
 
 name := "LogbackElasticAppender"
-version := "0.0.3"
+version := "0.1.0"
 organization := "net.pe3ny"
 
 scalaVersion := "2.13.11"
@@ -11,12 +11,15 @@ githubRepository := "LogbackElasticAppender"
 githubTokenSource := TokenSource.GitConfig("github.token")
 
 libraryDependencies ++= Seq(
-  // JSON lib
-  "com.typesafe.play" %% "play-json" % "2.9.4",
+  // Logback classic core - must be >= 1.3.0
+  "ch.qos.logback" % "logback-classic" % "1.3.0",
   // Akka streaming
   "com.typesafe.akka" %% "akka-stream" % "2.8.3",
-  // HTTP/s client
-  "com.softwaremill.sttp.client3" %% "core" % "3.0.0-RC7",
-  "com.softwaremill.sttp.client3" %% "akka-http-backend" % "3.8.16",
-  "ch.qos.logback" % "logback-classic" % "1.3.0"
+  // Elastic4s
+  "com.sksamuel.elastic4s" %% "elastic4s-core" % "8.8.1",
+  "com.sksamuel.elastic4s" %% "elastic4s-json-play" % "8.8.1",
+  "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % "8.8.1",
+  // Unit testing
+  "org.scalatest" %% "scalatest" % "3.2.15" % "test",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5" % "test",
 )

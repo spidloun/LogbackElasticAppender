@@ -1,13 +1,12 @@
 package net.pe3ny.elastic
 
 import org.slf4j.Marker
-import play.api.libs.json.JsValue
 
 import java.util
 
-class JsonPayloadMarker(name: String, jsonPayload: JsValue) extends Marker {
+class PayloadMarker(name: String, items: Map[String, Any]) extends Marker {
   override def getName: String = name
-  def getPayload: JsValue = jsonPayload
+  def getItems: Map[String, Any] = items
 
   /** Not used */
   override def add(reference: Marker): Unit = ()
