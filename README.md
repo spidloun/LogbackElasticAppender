@@ -27,3 +27,12 @@ Features:
 ```
 
 ## Usage in code
+
+Usage via Typesafe`s logger. Sending simple log and log with payload.
+
+```
+  val logger = LoggerFactory.getLogger("TEST").asInstanceOf[Logger]
+  logger.setLevel(Level.INFO)
+  logger.info("TEST MESSAGE")
+  logger.error(new PayloadMarker("props", Map("one" -> "two")), "PAYLOAD")
+```
